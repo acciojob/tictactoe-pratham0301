@@ -1,91 +1,65 @@
 //your JS code here. If required.
-
-
-let player1 = '';
-let player2 = '';
-let currentPlayer = '';
-let board = ['', '', '', '', '', '', '', '', ''];
+let currentPlayer = "X";
+let board = Array(9).fill("");
+let player1 = "";
+let player2 = "";
 let gameActive = true;
 
-// Event listener for the submit button
-document.getElementById('submit').addEventListener('click', function() {
-    startGame();
+document.getElementById("submit").addEventListener("click", () => {
+  player1 = document.getElementById("player-1").value || "Player 1";
+  player2 = document.getElementById("player-2").value || "Player 2";
+
+  document.getElementById("player-form").style.display = "none";
+  document.getElementById("game").style.display = "block";
+
+  updateMessage();
 });
 
-
-function updateMessage(text)
-{
-	document.querySelector('.message').textContent = text;
-}
-
-function startGame()
-{
-	player1 = document.getElementById('player-1').value || 'Player1';
-	player2 = document.getElementById('player-2').value || 'Player2';
-
-	// Set the current player to player1 and reset the board
-    currentPlayer = player1;
-    board = ['', '', '', '', '', '', '', '', ''];
-    gameActive = true;
-	document.querySelector('.board').style.display = 'grid';
-    updateMessage(`${currentPlayer}, you're up!`);
-	document.querySelectorAll('.cell').forEach(cell => cell.textContent = '');
-}
-
-// Add event listeners to all the cells for click handling
-document.querySelectorAll('.cell').forEach(cell => {
-    cell.addEventListener('click', handleCellClick);
-});
-
-// Function to handle cell clicks
-function handleCellClick(event) {
-    const cell = event.target;
-    const cellIndex = parseInt(cell.id) - 1;
-
-    if (board[cellIndex] === '' && gameActive) {
-        // Mark the cell and update the board
-        board[cellIndex] = currentPlayer === player1 ? 'X' : 'O';
-        cell.textContent = board[cellIndex];
-
-        // Check if there is a winner
-        const winner = checkWinner();
-        if (winner) {
-            updateMessage(`${currentPlayer}, congratulations you won!`);
-            gameActive = false;
-            return;
-        }
-
-        // Check if the board is full (draw)
-        if (!board.includes('')) {
-            updateMessage("It's a draw!");
-            gameActive = false;
-            return;
-        }
-
-        // Switch turns
-        currentPlayer = currentPlayer === player1 ? player2 : player1;
-        updateMessage(`${currentPlayer}, you're up!`);
-    }
+function updateMessage(text = null) {
+  const messageBox = document.querySelector(".message");
+  if (text) {
+    messageBox.textContent = text;
+  } else {
+    const name = currentPlayer === "X" ? player1 : player2;
+    messageBox.textContent = `${name}, you're up`;
+  }
 }
 
 function checkWinner() {
-    for (let combination of winningCombinations) {
-        const [a, b, c] = combination;
-        if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-            return board[a];
-        }
+  const winPatterns = [
+    [0,1,2],[3,4,5],[6,7,8],  // rows
+    [0,3,6],[1,4,7],[2,5,8],  // columns
+    [0,4,8],[2,4,6]           // diagonals
+  ];
+
+  for (let pattern of winPatterns) {
+    const [a,b,c] = pattern;
+    if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+      const winnerName = board[a] === "X" ? player1 : player2;
+      updateMessage(`${winnerName}, congratulations you won!`);
+      gameActive = false;
+      return;
     }
-    return null;
+  }
+
+  if (!board.includes("")) {
+    updateMessage("It's a draw!");
+    gameActive = false;
+  }
 }
 
-// Winning combinations for Tic Tac Toe
-const winningCombinations = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6]
-];
+document.querySelectorAll(".cell").forEach((cell, index) => {
+  cell.addEventListener("click", () => {
+    if (!gameActive || board[index] !== "") return;
+
+    board[index] = currentPlayer;
+    cell.textContent = currentPlayer;
+
+    checkWinner();
+
+    if (gameActive) {
+      currentPlayer = currentPlayer === "X" ? "O" : "X";
+      updateMessage();
+    }
+  });
+});

@@ -1,27 +1,55 @@
-.container {
-            text-align: center;
-            margin: 50px auto;
-        }
+/*  your css code here. If applicable */
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  text-align: center;
+  margin: 0;
+  padding: 40px;
+}
 
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+input {
+  padding: 10px;
+  margin: 5px;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+h1 {
+  margin-top: 20px;
+}
+
+.message {
+  margin: 15px 0;
+  font-size: 18px;
+  font-weight: bold;
+}
 
 .board {
-            display: none;
-            grid-template-columns: repeat(3, 100px);
-            grid-template-rows: repeat(3, 100px);
-            gap: 5px;
-            margin: 20px auto;
-        }
-        .cell {
-            width: 100px;
-            height: 100px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            border: 1px solid #000;
-            cursor: pointer;
-        }
-        .message {
-            font-size: 20px;
-            margin: 20px 0;
-        }
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-gap: 5px;
+  justify-content: center;
+}
+
+.cell {
+  width: 100px;
+  height: 100px;
+  background: white;
+  border: 2px solid #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  cursor: pointer;
+  user-select: none;
+}
