@@ -1,42 +1,33 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-	<link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tic Tac Toe</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
-	<!-- the entire body must be written by student -->
-	<div class="container">
-    <!-- Input form -->
+  <div class="container">
+    <!-- initial header the tests expect -->
+    <h1>Tic Tac Toe</h1>
+
+    <!-- Player form (initial view) - note IDs: player1, player2, submit -->
     <div id="player-form">
-      <input type="text" id="player-1" placeholder="Enter Player 1 name" />
-      <input type="text" id="player-2" placeholder="Enter Player 2 name" />
-      <button id="submit">Start Game</button>
+      <label>
+        Player 1:
+        <input id="player1" type="text" placeholder="Player 1 name" />
+      </label>
+      <label>
+        Player 2:
+        <input id="player2" type="text" placeholder="Player 2 name" />
+      </label>
+      <button id="submit">Submit</button>
     </div>
 
-    <!-- Game board -->
-    <div id="game" style="display:none;">
-      <h1>Tic Tac Toe</h1>
-      <div class="message"></div>
-      <div class="board">
-        <!-- 9 cells -->
-        <div class="cell" id="1"></div>
-        <div class="cell" id="2"></div>
-        <div class="cell" id="3"></div>
-        <div class="cell" id="4"></div>
-        <div class="cell" id="5"></div>
-        <div class="cell" id="6"></div>
-        <div class="cell" id="7"></div>
-        <div class="cell" id="8"></div>
-        <div class="cell" id="9"></div>
-      </div>
-    </div>
+    <!-- Game area (hidden until submit) -->
+    <div id="game-area" style="display: none;"></div>
   </div>
-    <script type="text/javascript" src="./script.js">
-</script>
 
+  <script src="script.js"></script>
 </body>
-
 </html>
